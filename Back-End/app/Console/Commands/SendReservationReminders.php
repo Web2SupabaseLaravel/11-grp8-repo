@@ -42,12 +42,9 @@ class SendReservationReminders extends Command
         $this->notificationService = $notificationService;
     }
 
-    /**
-     * Execute the console command.
-     */
+    
     public function handle()
     {
-        // Find reservations for tomorrow
         $tomorrow = Carbon::tomorrow()->toDateString();
         
         $upcomingReservations = Reservation::where('Status', 'confirmed')
@@ -57,7 +54,6 @@ class SendReservationReminders extends Command
 
         $count = 0;
         foreach ($upcomingReservations as $reservation) {
-            // Only send if there's a user associated
             if ($reservation->user) {
                 $this->notificationService->sendReservationNotification($reservation, 'reminder');
                 $count++;

@@ -25,14 +25,11 @@ class NotificationService
             return;
         }
         
-        // Create title and message based on notification type
         $title = $this->getNotificationTitle($type);
         $message = $this->getNotificationMessage($reservation, $type);
         
-        // Store notification in database
         $this->createDatabaseNotification($user->id, $title, $message);
         
-        // Send email notification
         $this->sendEmailNotification($user->email, $reservation, $type);
     }
     

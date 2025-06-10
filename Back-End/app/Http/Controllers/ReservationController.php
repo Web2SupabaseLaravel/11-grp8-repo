@@ -51,7 +51,6 @@ class ReservationController extends Controller
             'table_id' => 'required|exists:tables,id'
         ]);
 
-        // Generate a unique reservation ID
         $reservationId = Reservation::max('reservation_id') + 1;
 
         $reservation = Reservation::create([
@@ -64,7 +63,6 @@ class ReservationController extends Controller
             'IDUser' => $validated['user_id']
         ]);
 
-        // Send notification
         $this->notificationService->sendReservationNotification($reservation, 'confirm');
 
         return response()->json([
@@ -73,9 +71,7 @@ class ReservationController extends Controller
         ], 201);
     }
 
-    /**
-     * Display the specified reservation.
-     */
+   
     public function show($date, $time, $id)
     {
         $reservation = Reservation::where('Date', $date)
@@ -91,9 +87,7 @@ class ReservationController extends Controller
         return response()->json($reservation);
     }
 
-    /**
-     * Update reservation status.
-     */
+ 
     public function update(Request $request, $date, $time, $id)
     {
         $validated = $request->validate([
@@ -113,7 +107,6 @@ class ReservationController extends Controller
             'Status' => $validated['status']
         ]);
 
-        // Send notification based on status
         $notificationType = $validated['status'] === 'cancelled' ? 'cancel' : 'confirm';
         $this->notificationService->sendReservationNotification($reservation, $notificationType);
 
@@ -123,9 +116,7 @@ class ReservationController extends Controller
         ]);
     }
 
-    /**
-     * Remove the specified reservation.
-     */
+ 
     public function destroy($date, $time, $id)
     {
         $reservation = Reservation::where('Date', $date)
@@ -137,7 +128,6 @@ class ReservationController extends Controller
             return response()->json(['message' => 'Reservation not found'], 404);
         }
 
-        // Send cancellation notification before deleting
         $this->notificationService->sendReservationNotification($reservation, 'cancel');
         
         $reservation->delete();

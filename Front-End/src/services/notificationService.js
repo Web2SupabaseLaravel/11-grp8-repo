@@ -1,9 +1,7 @@
 import api from './api';
 import { authService } from './authService';
 
-/**
- * Service for handling notification-related API calls matching Laravel backend
- */
+
 export const notificationService = {
   /**
    * Get all notifications with pagination
@@ -13,7 +11,6 @@ export const notificationService = {
    */
   getAllNotifications: async (page = 1, limit = 10) => {
     try {
-      // Check if user is authenticated
       if (!authService.isAuthenticated()) {
         throw new Error('User is not authenticated');
       }
@@ -22,12 +19,10 @@ export const notificationService = {
         params: { page, per_page: limit }
       });
       
-      // Map each notification from backend format to frontend format
       const mappedNotifications = (response.data.data || []).map(notification =>
         mapNotificationFromBackend(notification)
       );
       
-      // Handle Laravel pagination structure
       return {
         notifications: mappedNotifications,
         total: response.data.total || 0,
@@ -37,15 +32,11 @@ export const notificationService = {
     } catch (error) {
       console.error('Error fetching notifications:', error);
       if (error.response && error.response.status === 401) {
-        // Try to refresh token
         try {
           await authService.refreshToken();
-          // Retry the request
           return notificationService.getAllNotifications(page, limit);
         } catch (refreshError) {
-          // If refresh fails, redirect to login
           console.error('Token refresh failed:', refreshError);
-          // Clean up authentication data
           await authService.logout();
           throw new Error('Authentication expired. Please login again.');
         }
@@ -61,7 +52,6 @@ export const notificationService = {
    */
   getNotification: async (id) => {
     try {
-      // Check if user is authenticated
       if (!authService.isAuthenticated()) {
         throw new Error('User is not authenticated');
       }
@@ -71,15 +61,11 @@ export const notificationService = {
     } catch (error) {
       console.error(`Error fetching notification ${id}:`, error);
       if (error.response && error.response.status === 401) {
-        // Try to refresh token
         try {
           await authService.refreshToken();
-          // Retry the request
           return notificationService.getNotification(id);
         } catch (refreshError) {
-          // If refresh fails, redirect to login
           console.error('Token refresh failed:', refreshError);
-          // Clean up authentication data
           await authService.logout();
           throw new Error('Authentication expired. Please login again.');
         }
@@ -96,8 +82,6 @@ export const notificationService = {
    * @returns {Promise} API response
    */
   markAsRead: async (id) => {
-    // This would ideally call an API endpoint to update read status
-    // For now, we'll track this on the client side
     console.warn('markAsRead: Backend API does not support this operation');
     return { id, read: true };
   },
@@ -109,7 +93,6 @@ export const notificationService = {
    * @returns {Promise} API response
    */
   markAllAsRead: async () => {
-    // This would ideally call an API endpoint to update read status for all
     console.warn('markAllAsRead: Backend API does not support this operation');
     return { success: true };
   },
@@ -121,7 +104,6 @@ export const notificationService = {
    */
   deleteNotification: async (id) => {
     try {
-      // Check if user is authenticated
       if (!authService.isAuthenticated()) {
         throw new Error('User is not authenticated');
       }
@@ -131,15 +113,11 @@ export const notificationService = {
     } catch (error) {
       console.error(`Error deleting notification ${id}:`, error);
       if (error.response && error.response.status === 401) {
-        // Try to refresh token
         try {
           await authService.refreshToken();
-          // Retry the request
           return notificationService.deleteNotification(id);
         } catch (refreshError) {
-          // If refresh fails, redirect to login
           console.error('Token refresh failed:', refreshError);
-          // Clean up authentication data
           await authService.logout();
           throw new Error('Authentication expired. Please login again.');
         }
@@ -173,10 +151,10 @@ function mapNotificationFromBackend(notification) {
   return {
     id: notification.NotID,
     title: notification.Title,
-    message: notification.Massage, // Using the column name as defined in backend
+    message: notification.Massage, 
     userId: notification.UID,
     createdAt: notification.CreatedTime,
-    read: false // Default to unread since backend doesn't track read status yet
+    read: false 
   };
 }
 

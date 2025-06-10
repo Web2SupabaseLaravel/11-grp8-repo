@@ -51,25 +51,19 @@ class Reservation extends Model
         'IDUser'
     ];
 
-    /**
-     * Get the restaurant associated with the reservation.
-     */
+    
     public function restaurant()
     {
         return $this->belongsTo(Restaurant::class, 'IDRest');
     }
 
-    /**
-     * Get the table associated with the reservation.
-     */
+  
     public function table()
     {
         return $this->belongsTo(Table::class, 'IDTABLE');
     }
 
-    /**
-     * Get the user who made the reservation.
-     */
+    
     public function user()
     {
         return $this->belongsTo(User::class, 'IDUser', 'id');

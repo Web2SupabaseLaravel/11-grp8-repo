@@ -26,15 +26,12 @@ class TestEmailNotification extends Command
      */
     protected $description = 'Test sending a reservation notification email';
 
-    /**
-     * Execute the console command.
-     */
+   
     public function handle()
     {
         $type = $this->argument('type');
         $email = $this->argument('email') ?? 'test@example.com';
         
-        // Create a test reservation
         $reservation = new Reservation([
             'name' => 'Test User',
             'email' => $email,
@@ -42,7 +39,6 @@ class TestEmailNotification extends Command
             'status' => $type === 'cancel' ? 'cancelled' : 'confirmed',
         ]);
         
-        // Send the notification
         if ($this->option('queue')) {
             Mail::to($email)->queue(new ReservationNotification($reservation, $type));
             $this->info("Notification queued for sending to {$email}.");

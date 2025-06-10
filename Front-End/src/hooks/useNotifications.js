@@ -2,10 +2,8 @@ import { useQuery, useMutation, useQueryClient } from 'react-query';
 import { useState, useEffect, useCallback } from 'react';
 import notificationService from '../services/notificationService';
 
-// Use the actual notification service, not the mock
 const service = notificationService;
 
-// Local storage key for read notifications
 const READ_NOTIFICATIONS_KEY = 'readNotifications';
 
 /**
@@ -34,14 +32,11 @@ const saveReadNotifications = (ids) => {
   }
 };
 
-/**
- * Custom hook for notifications data and actions
- */
+
 export const useNotifications = (page = 1, limit = 10) => {
   const queryClient = useQueryClient();
   const [readIds, setReadIds] = useState(getReadNotifications());
   
-  // Fetch notifications with pagination
   const { 
     data: notificationsData,
     isLoading,
@@ -57,9 +52,7 @@ export const useNotifications = (page = 1, limit = 10) => {
     }
   );
   
-  // Process notifications to add read state from local storage
   const notifications = (notificationsData?.notifications || []).map(notification => {
-    // Safely handle potentially missing ids
     const notificationId = notification?.id;
     return {
       ...notification,
@@ -71,12 +64,10 @@ export const useNotifications = (page = 1, limit = 10) => {
   const totalPages = notificationsData?.totalPages || 0;
   const unreadCount = notifications.filter(notification => !notification.read).length;
   
-  // Save read state to localStorage when it changes
   useEffect(() => {
     saveReadNotifications(readIds);
   }, [readIds]);
   
-  // Mark notification as read locally
   const markAsRead = useCallback((id) => {
     if (!id) return Promise.resolve({ success: false });
     
@@ -89,9 +80,7 @@ export const useNotifications = (page = 1, limit = 10) => {
     return Promise.resolve({ id, read: true });
   }, [readIds]);
   
-  // Mark all notifications as read locally
   const markAllAsRead = useCallback(() => {
-    // Only include IDs that are not undefined/null
     const validIds = notifications
       .filter(n => n.id)
       .map(n => n.id.toString());
@@ -102,7 +91,6 @@ export const useNotifications = (page = 1, limit = 10) => {
     return Promise.resolve({ success: true });
   }, [notifications, readIds]);
   
-  // Delete notification mutation
   const deleteNotificationMutation = useMutation(
     (id) => service.deleteNotification(id),
     {
@@ -113,7 +101,6 @@ export const useNotifications = (page = 1, limit = 10) => {
   );
   
   return {
-    // Data
     notifications,
     totalNotifications,
     totalPages,
@@ -122,23 +109,19 @@ export const useNotifications = (page = 1, limit = 10) => {
     isError,
     error,
     
-    // Actions
     refetch,
     getNotification: (id) => id ? service.getNotification(id) : Promise.resolve(null),
     markAsRead,
     markAllAsRead,
     deleteNotification: (id) => id ? deleteNotificationMutation.mutate(id) : null,
     
-    // Mutation states
     isMarkingAsRead: false,
     isMarkingAllAsRead: false,
     isDeleting: deleteNotificationMutation.isLoading,
   };
 };
 
-/**
- * Custom hook to fetch a single notification by ID
- */
+
 export const useNotification = (id) => {
   const [readIds, setReadIds] = useState(getReadNotifications());
   
@@ -146,11 +129,10 @@ export const useNotification = (id) => {
     ['notification', id],
     () => service.getNotification(id),
     {
-      enabled: !!id, // Only run if ID is provided
+      enabled: !!id,
     }
   );
   
-  // Mark as read when notification is viewed
   useEffect(() => {
     if (query.data && id) {
       const idStr = id.toString();
@@ -162,7 +144,6 @@ export const useNotification = (id) => {
     }
   }, [id, query.data, readIds]);
   
-  // Add read status to fetched notification
   const notification = query.data
     ? { ...query.data, read: true }
     : null;

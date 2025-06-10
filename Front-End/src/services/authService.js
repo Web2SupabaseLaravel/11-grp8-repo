@@ -1,8 +1,6 @@
 import api from './api';
 
-/**
- * Service for handling authentication API calls
- */
+
 export const authService = {
   /**
    * Login with email and password
@@ -14,7 +12,6 @@ export const authService = {
     try {
       const response = await api.post('/auth/login', { email, password });
       
-      // Store token in localStorage
       if (response.data.access_token) {
         localStorage.setItem('authToken', response.data.access_token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -38,7 +35,6 @@ export const authService = {
     try {
       const response = await api.post('/auth/register', { name, email, password });
       
-      // Store token in localStorage
       if (response.data.access_token) {
         localStorage.setItem('authToken', response.data.access_token);
         localStorage.setItem('user', JSON.stringify(response.data.user));
@@ -57,10 +53,8 @@ export const authService = {
    */
   logout: async () => {
     try {
-      // Call API to invalidate token
       await api.post('/auth/logout');
       
-      // Remove token from localStorage
       localStorage.removeItem('authToken');
       localStorage.removeItem('user');
       
@@ -68,7 +62,6 @@ export const authService = {
     } catch (error) {
       console.error('Logout error:', error);
       
-      // Even if API call fails, remove token from localStorage
       localStorage.removeItem('authToken');
       localStorage.removeItem('user');
       
@@ -98,7 +91,6 @@ export const authService = {
     try {
       const response = await api.post('/auth/refresh');
       
-      // Store new token in localStorage
       if (response.data.access_token) {
         localStorage.setItem('authToken', response.data.access_token);
       }

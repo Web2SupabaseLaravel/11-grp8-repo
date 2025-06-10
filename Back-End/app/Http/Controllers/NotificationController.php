@@ -39,7 +39,6 @@ class NotificationController extends Controller
         $notification = Notification::findOrFail($id);
         $user = auth()->guard('api')->user();
         
-        // Check if the notification belongs to the authenticated user
         if ($notification->UID != $user->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }
@@ -58,7 +57,6 @@ class NotificationController extends Controller
         $notification = Notification::findOrFail($id);
         $user = auth()->guard('api')->user();
         
-        // Check if the notification belongs to the authenticated user
         if ($notification->UID != $user->id) {
             return response()->json(['message' => 'Unauthorized'], 403);
         }

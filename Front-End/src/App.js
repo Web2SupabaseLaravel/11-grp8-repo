@@ -8,7 +8,6 @@ import HomePage from './components/pages/HomePage';
 import AdminPage from './components/pages/AdminPage';
 import './App.css';
 
-// Create React Query client
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
@@ -18,7 +17,6 @@ const queryClient = new QueryClient({
   },
 });
 
-// Create MUI theme
 const theme = createTheme({
   palette: {
     primary: {

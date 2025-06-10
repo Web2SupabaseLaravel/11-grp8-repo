@@ -4,9 +4,7 @@ import { Notifications as NotificationsIcon } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
 import useNotifications from '../../hooks/useNotifications';
 
-/**
- * Notification bell icon with unread count badge
- */
+
 const NotificationBadge = () => {
   const navigate = useNavigate();
   const { unreadCount, isLoading } = useNotifications();

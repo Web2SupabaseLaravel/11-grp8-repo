@@ -51,13 +51,11 @@ class Notification extends Model
      */
     protected $fillable = [
         'Title',
-        'Massage', // Note: Using the column name as defined in schema
+        'Massage', 
         'UID'
     ];
 
-    /**
-     * Get the user that the notification belongs to.
-     */
+   
     public function user()
     {
         return $this->belongsTo(User::class, 'UID', 'id');
