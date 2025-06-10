@@ -1,0 +1,41 @@
+.management-wrapper {
+  background-color: #f6cd8f;
+  padding: 50px;
+  border-radius: 12px;
+  width: 100vw;
+  height: 100vh;
+  box-sizing: border-box;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-box {
+  background-color: #fff3cd;
+  padding: 40px;
+  border-radius: 10px;
+  width: 90%;
+  max-width: 500px;
+}
+
+.form-box input {
+  display: block;
+  width: 100%;
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+.form-box button {
+  margin-top: 15px;
+  padding: 12px 24px;
+  background-color: #e59b0f;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+}
