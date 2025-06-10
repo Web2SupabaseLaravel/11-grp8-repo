@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #eae4d3;
+  font-family: serif;
+  text-align: center;
+
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #000;
+  padding-bottom: 0.5rem;
+  margin-bottom: 1rem;
+  padding: 0 1rem;
+}
+
+.header img {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 9999px;
+}
+
+.header a {
+  margin: 0 0.5rem;
+  text-decoration: none;
+  font-size: 1.125rem;
+}
+
+.header a:hover {
+  text-decoration: underline;
+}
+
+.header button {
+  padding: 0.25rem 0.75rem;
+  border-radius: 0.25rem;
+  margin-left: 0.5rem;
+  font-size: 1rem;
+}
+
+.signup-btn {
+  border: 1px solid #000;
+}
+
+.login-btn {
+  background-color: #d2a56c;
+}
+
+.section-title {
+  font-size: 1.25rem;
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+
+.grid {
+  display: grid;
+  gap: 1rem;
+  justify-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.grid.reserves {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+@media (min-width: 768px) {
+  .grid.reserves {
+    grid-template-columns: repeat(4, 1fr);
+  }
+  .grid.accepted {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.box {
+  width: 8rem;
+  height: 8rem;
+  background-color: #b77a3b;
+  color: black;
+  font-weight: bold;
+  border: 2px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+footer {
+  border-top: 1px solid #000;
+  padding-top: 1rem;
+  font-size: 0.875rem;
+}
+
+.golden-card {
+  background-color: gold;
+  border: 2px solid #c49b00;
+  padding: 1rem;
+  border-radius: 12px;
+  text-align: center;
+}
+
+.reserve-btn {
+  margin-top: 10px;
+  padding: 0.5rem 1rem;
+  background-color: #006400;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.reserve-btn:hover {
+  background-color: #228B22;
+}
