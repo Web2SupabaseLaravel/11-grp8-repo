@@ -35,42 +35,52 @@ export default function ReservePage() {
   };
 
   return (
-    <div className="page">
-      {/* Header */}
-      <div className="header">
-        <img src="/frontend/public/assets/logo.jpg" alt="Logo" />
-        <div className="nav-links">
-          <a href="#">Home</a>
-          <a href="#">Menu</a>
-          <a href="#">Reserve</a>
-          <a href="#">Online</a>
-        </div>
-        <div className="auth-buttons">
-          <button className="signup-btn">Sign up</button>
-          <button className="login-btn">Login</button>
-        </div>
-      </div>
 
-      {/* Golden Cards (Pending Reserves) */}
-      <h2 className="section-title">الكروت الذهبية (متاحة للحجز):-</h2>
-      <div className="grid reserves">
-        {reserves.map((item) => (
-          <div key={item.id} className="box golden-card">
-            <p>{item.description}</p>
-            <button onClick={() => handleReserve(item.id)} className="reserve-btn">احجز</button>
+      <div className="page">
+        {/* Header */}
+        <div className="header">
+          <img src="/frontend/public/assets/logo.jpg" alt="Logo" />
+          <div className="nav-links">
+            <a href="#">Home</a>
+            <a href="#">Menu</a>
+            <a href="#">Reserve</a>
+            <a href="#">Online</a>
           </div>
-        ))}
-      </div>
+          <div className="auth-buttons">
+            <button className="signup-btn">Sign up</button>
+            <button className="login-btn">Login</button>
+          </div>
+        </div>
 
-      {/* Accepted Reserves */}
-      <h2 className="section-title">الحجوزات المقبولة:-</h2>
-      <div className="grid accepted">
-        {acceptedReserves.map((item) => (
-          <div key={item.id} className="box">
-            {item.description}
-          </div>
-        ))}
+        {/* Golden Cards (Pending Reserves) */}
+        <h2 className="section-title">الكروت الذهبية (متاحة للحجز):-</h2>
+        <div className="grid reserves">
+          {reserves.map((item) => (
+            <div key={item.id} className="box golden-card">
+              <p>{item.description}</p>
+              <button onClick={() => handleReserve(item.id)} className="reserve-btn">احجز</button>
+            </div>
+          ))}
+        </div>
+
+        {/* Accepted Reserves */}
+        <h2 className="section-title">الحجوزات المقبولة:-</h2>
+        <div className="grid accepted">
+          {acceptedReserves.map((item) => (
+            <div key={item.id} className="box">
+              {item.description}
+            </div>
+          ))}
+        </div>
+
+
+        {/* Footer */}
+      <footer>
+        <a href="">Facebook</a>
+        <a href="">X</a>
+        <a href="">Instagram</a>
+        <a href="">Whatsapp</a>
+        </footer>
       </div>
-    </div>
   );
 }
