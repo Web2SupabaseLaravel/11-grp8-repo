@@ -1,0 +1,16 @@
+# Laravel
+/vendor/
+.env
+/storage/
+public/storage/
+
+# Frontend
+/frontend/node_modules/
+frontend/dist/
+frontend/build/
+
+# OS & Editor
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
